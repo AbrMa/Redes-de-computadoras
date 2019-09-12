@@ -1,0 +1,38 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{dirtytalk}
+\usepackage{graphicx}
+\usepackage{makecell}
+
+\begin{document}
+
+\title{\Large Instituto Politécnico Nacional\\Escuela Superior de Cómputo\\Redes de Computadoras\\Tarea 4: MTU\\Alumno: Meza Zamora Abraham Manuel}
+\date{}
+\maketitle
+
+\section{Unidad máxima de transferencia}
+La unidad máxima de transferencia (Maximum Transmission Unit - MTU) es un término de redes de computadoras que expresa el tamaño en bytes de la unidad de datos más grande que puede enviarse usando un protocolo de comunicaciones.
+
+Ejemplos de MTU para distintos protocolos usados en Internet:
+\begin{itemize}
+\item Ethernet: 1500 bytes
+\item PPPoE: 1492 bytes
+\item ATM (AAL5): 9180 bytes
+\item FDDI: 4470 bytes
+\item PPP: 576 bytes
+
+\end{itemize}
+
+Para el caso de IP, el máximo valor de la MTU es 64 Kilobytes (216 - 1). Sin embargo, ese es un valor máximo teórico, pues, en la práctica, la entidad IP determinará el máximo tamaño de los datagramas IP en función de la tecnología de red por la que vaya a ser enviado el datagrama. Por defecto, el tamaño de datagrama IP es de 576 bytes. Sólo pueden enviarse datagramas más grandes si se tiene conocimiento fehaciente de que la red destinataria del datagrama puede aceptar ese tamaño. En la práctica, dado que la mayoría de máquinas están conectadas a redes Ethernet o derivados, el tamaño de datagrama que se envía es con frecuencia de 1500 bytes.
+
+Los datagramas pueden pasar por varios tipos de redes con diferentes tamaños aceptables antes de llegar a su destino. Por tanto, para que un datagrama llegue sin fragmentación al destino, ha de ser menor o igual que el menor MTU de todos los de las redes por las que pase.
+
+En el caso de TCP/UDP, el valor máximo está dado por el MSS (Maximum Segment Size), y toma su valor en función de tamaño máximo de datagrama, dado que el MTU = MSS + cabeceras IP + cabeceras TCP/UDP. En concreto, el máximo tamaño de segmento es igual al máximo tamaño de datagrama menos 40 (que es número mínimo de bytes que ocuparán las cabeceras IP y TCP/UDP en el datagrama).
+
+\section{Posibles problemas}
+Lamentablemente, cada vez más redes bloquean todo el tráfico ICMP (p.ej. para evitar ataques de denegación de Servicio - DoS (Denial of Service), lo que impide que funcione el descubrimiento del MTU del camino. A menudo podemos detectar estos bloqueos cuando la conexión funciona para un bajo tráfico de datos, pero se bloquea tan pronto como un host envía un bloque grande de datos de una vez. También, en una red IP el camino desde el origen al destino a menudo se modifica dinámicamente, como respuesta a sucesos variados (balanceo de carga, congestión, etc.); esto puede hacer que el MTU del camino cambie (a veces repetidamente) durante una transmisión, lo que puede introducir que los paquetes siguientes sean desechados antes de que el host encuentre un nuevo MTU fiable para el camino.
+
+La mayoría de las redes de área local ethernet usan una MTU de 1500 bytes.
+\end{document}
